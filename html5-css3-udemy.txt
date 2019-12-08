@@ -1,0 +1,182 @@
+--> It's good practice to put styles in in style tag in head however they could be present in body tag or even out of body, html and head tag as 
+	well. we should put in head tag because they will get loaded early before elements so that are ready to aplly while element is being rendered. 
+	on other hand script tag we should put just before end of body tag because our js code should run only when all elements are loaded.
+
+--> When we write html5 from scratch to tell browser that this is html5 we have to declare it by <html !DOCTYPE>
+	<html !DOCTYPE>
+	<html>
+	.... body, head all things goes here
+	</html>
+
+--> html and css are not case sensitive languages. hence elements name are not case ensitive. in css property names are not case sensitives
+	however name of classes , ids are case	sensitive.
+
+--> If we do not give any title to html page by default file name is title
+
+--> strong and b both tags makes texts bold but strong tag means emphasis on some text i.e. not only for presentation. ex. we give emphasis
+	for particular word while talking as well.
+	<b> and <i> are explicit - they specify bold and italic respectively.
+	<strong> and <em> are semantic - they specify that the enclosed text should be "strong" or "emphasised" in some way, usually bold and italic, 
+	but allow for the actual styling to be controlled via CSS. Hence these are preferred in modern web pages.
+	just by appearance i and em both make rext italic where b and strong makes text bold.
+
+--> text-align: justify; means each line has equal length.
+
+--> by default in box model width of element means just width of content. if we give 100px width , 2px border and 10px padding then total width of 
+	element become 124px (100 + 10+ 10 + 2 + 2). Sometimes this inbuilt feature could be annoying enough. to get rid of this we have 
+	box-sizing: border-box; after applying this property when we say width: 100px, border: 2px and padding: 10px then total width: 100px
+	and content width would be 100px - 20px - 4px = 76px.
+	if padding + border goes beyond total width given then width of content become 0.
+
+--> if we set margin to right and left to auto it will place element in middle of the screen horizontally. margin: 0 auto;
+
+--> position:absolute for child and position:relative(or any other) to parent make child element to place at lefmost and top most position.
+	by applying right,left,top,bottom we can move child element within parent element. child element without top,left etc properties will
+	be placed after padding of parent however if we apply any property like left, right etc. then it's positioning start from just after border
+	without respecting padding. for position absolute it always moves with respect to parent element which has some position propoerty.
+	in case of position: relative it moves with respect to element itself. also in this case it respect padding even after applying left,right etc.
+
+--> When we start with web designing coming each time with new yet stunning layout might not be possible. So though it sounds wrong we may steal
+	some pattern or layout from other websites but with some modifications.
+
+--> When we start to build layout of website we have to make hierarchy on web page so that in hierarchy top order should be dedicated to
+	content which must be presented first in front of users. Another important thing by functionality draw all rough sketches of all pages and then 
+	decide navigation for each of them.
+
+--> When we add css files to any html page by link tag, hierarchy in which they are imported in head of html page does matter. it's just sequential
+	css rules. bottom most imported file will override all css rules for earlier imported files.
+
+--> before adding or applying any css to web pages it could be nice idea to reset or normalize css for all element. reset.css contain all 
+	css rules which removes all default styles of all element i.e. block element has default maring. Normalize.css has all css rules which ensure that 
+	css properties for all browser would be consistent by default.
+
+--> For responsive web design there few main things we need to use extensively. 
+	1) All element should be sized in relative units such as percentage
+	2) Images should be flexible and should change size in relative units again.
+	3) Using media queries for targeting different screen sizes.
+	4) we must have to create layout using grid system where we decide layout where number of columns could be anything between 1 to 12.
+	   give column appropriate width and make them responsive by using media queries.
+
+--> when we create sections like header, footer etc. instead of using normal div we should use html5 elements like header , footer.
+	by those elements search engine exactly know which is header of web page and which one is footer. also it adds readability.
+
+--> vh units stand for viewport height. 100 vh means 100% of viewports height. height: 100vh is often used to make element's height equal to height of viewport.
+	similarely vw: viewport width: 100vw.means 100% of viewports width.
+	Viewport: It is your device screen.
+	Window: It is your browser window. The window can be as big as viewport or smaller.	
+
+--> when we set background-mage for any element by using background-image: url(img/hero.jpg); image size will not fit with element size. tomake that happen we 
+	have to apply    background-size: cover; now in order to make image at center of the page we have to apply    background-position: center;
+
+--> We have often seen below code to make any element 
+	position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+	It naturally cone in mind like if we push element from left and top by 50% then it will come at exactly middle of it's parent. taht's true why do we need to
+	translate it by -50% then? Actually by moving element from top and left by 50% either by margin or top-left element comes in middle of screen but from that point
+	width and height of elements begin from that pixel and then it's width and height make it look like moving little more towards right 
+	and bottom. Element would have been exactly at middle of the parent element if middle of child element is at middle of parent.
+	but in our case middle of parent has start of child. In order to make middle of child at  midle of parent we need to move child element
+	left and top by half of it's size. so we are translating child element by -50%. IMportant thing to note here is -50% used intranslate
+	refers to 50% of element itself but when we say 50% for margin or top it's 50% of parent 
+
+--> when we want to write something on the image we can make image look darket by applying linear gradient.
+	background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(img/hero.jpg);
+
+--> When we gives font-size in percentage, it would be % of font size of parent element. this holds true for other properties as well. such as 
+	line height, letter-spacing etc. but not for padding and margin.
+	parent has font-size: 20px, now in child font-size:200% would be equivalent to 40px. It's good habbit to give font size in some pixels 
+	to parent most element(html,body etc.) and then give font-size in percentage to all subsequent element in percentage.
+	Usually when we have very big heading with larger font size we should reduce it's font weight to make it look nicer.
+
+--> To create animations transition property is important. Along with other properties we need to apply transition for properties we wish to apply.
+	ex. border: 1px solid white; 
+		background-color:red; 
+		transition: border 0.2s, background-color 0.2s;
+	means whenever we have to change in border on hover then it will not change instatly instead it wll take 0.2s to do so.
+	It add beautiful transition effect.
+
+--> When we say  width:auto;
+	width will never exceed the total width of parent element. Maximum width is it's parent width.
+	Even if we add border, padding and margin, content of element itself will become smaller in order to give space for border, padding and margin.
+	In case if space required for border + padding + margin is greater than total width of parent element then width of content will become zero.
+	When we say    width:100%;
+	width of content of element will become 100% of parent element and from now if we add border, padding or margin then it will cause child element 
+	to exceed parent element's width and it will starts overflowing out of parent element.
+
+--> We can divide whole web page in different sections. we have section tag in HTML5 which can be used to wrap every individual section.
+
+--> we can write comment in html5 by <!-- comments -->
+
+--> In html5 we can insert differnt symbols or characters which we may not able to type from keyboard. ex. $mdash; would make nice longer dash in page.
+	there are many such symbols available.
+
+--> We can use selector::after and selector::before for creating some content after any element. ex we want border of just 10px length for element having 
+	width 100px. we can say element::after { display:block; margin-top:10px; width:10px; height:2px; background-color:orange}. in this way we can
+	give border-radius to even borders.
+
+--> transform:scale(1.15) will zoom element by 15%.
+
+--> When we add css properties with selector and we have to omit some of selectors depending on condition then we have pseudo class :not().
+	ex. div:not(div.classname) in this case all divs except given classname will get those styles applied on them.
+
+--> When we set change opacity of element or images it becomes white so we can't add some cool effects. In this case making background black is good way to 
+	to get rid of that. 
+
+--> when we need to create some content which is not on keyboard or in form of html element then using ::after or ::before is good solution.
+	by content we can create lot of different symbols in whatever size we want.
+
+--> box-shadow has mainly 5 values which are used mostly. there are others as well but those are rarely used.
+	ex. box-shadow: R/L T/B blurr spread color;
+	R/L may have either positive or negative value. positive value makes shadow moves towards right of element and negative towards left. 
+	T/B may have either positive or negative value. positive value makes shadow moves towards bottom of element and negative towards top.
+	blurr is again value in pixel like R/L or T/B. this values increase or decrease in this value increase/decrease blurr of shadow.
+	spread is amount in pixel aain like other values which decides how much we want to spread shadow. this makes shadow spread to all side.
+	 this means T/B and R/L values are addition to this spread and hence if we want shadow of equal amount from all side we should give spread
+	 value and make T/B and R/L 0px. 
+	Last value is color of the shadow.
+
+--> When designing forms we should always wrap up all form element in form tag. inside form we usually have one submit button 
+	which HTML5 explicitly provide us. <input type="submit" value="name to diaplay on button" />
+	now after wrapping form elements inside form tag we can use basic validators of html5 like required etc.
+	if we click on submit button it will show warning.
+
+--> for label element if we give id of form element in for attribute then after clicking on label focus on will go to that particular element.
+	ex. <label for="idname">Name</label>  <input type="text" id="idname">
+
+--> For making website responsive we have some standard breakpoints.
+	/* SMARTPHONES PORTRAIT */ : @media only screen and (min-width: 300px) {}
+
+	/* SMARTPHONES LANDSCAPE */ : @media only screen and (min-width: 480px) {}
+
+	/* TABLETS PORTRAIT */ : @media only screen and (min-width: 768px) {}
+	
+	/* TABLET LANDSCAPE / DESKTOP */ : @media only screen and (min-width: 1024px) {}   
+	
+	by minimum width css wil get applied once that width is there. however if othr breakpoint is hit then it will change.
+	we also can have max-width. which means below that width css will get applied.
+
+--> <meta name="viewport" content ="width=device-width, initial-scale=1.0">   useful meta tag which tell browser few things. 
+	width="" tells which width browser should consider for viewport. initial-scale="" tells that at beginning there should not be zoomed screen.
+	we can have different kind of info in metatag such as charset to use, keywords to help search engine to search website and so on.
+	  <meta charset="UTF-8">
+	  <meta name="description" content="Free Web tutorials">
+	  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+	  <meta name="author" content="John Doe">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+-->
+ 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

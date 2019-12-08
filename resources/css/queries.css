@@ -1,0 +1,28 @@
+/* ***************************************
+      MObile small phones
+*****************************************/
+@media only screen and (max-width: 480px) {
+
+}
+
+/* ***************************************
+ MObile large phones but smaller than i-pad
+*****************************************/
+@media only screen and (max-width: 767px) {
+
+}
+
+
+/* ***************************************
+      ipads portrait mode
+*****************************************/
+@media only screen and (max-width: 1023px) {
+
+}
+
+/* ***************************************
+      big tabletes 
+*****************************************/
+@media only screen and (max-width: 1200px) {
+
+}
