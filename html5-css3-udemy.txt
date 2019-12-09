@@ -166,7 +166,24 @@
 	  <meta name="author" content="John Doe">
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
--->
+--> While making website responsive genral approach should be inspect web page in browser and then fix distorted or wrong parts one by one 
+	using decided breakpoints.
+
+--> Like responsiveness web pages also should look good on all browsers in internet community. However unfortunately by default differen
+	browsers treat or render html5 ,css3 and js in different manner. So after testing on different browser we may see some differnces.
+	we can target specif browser by adding prefix before css properties.
+	Android: -webkit-
+	Chrome: -webkit-
+	Firefox: -moz-
+	Internet Explorer: -ms-
+	iOS: -webkit-
+	Opera: -o-
+	Safari: -webkit-
+	ex. -webkit-border-radius: 5px;
+	not all properties need prefixes. only some of properties need them like border-radius, transition, transform etc. in order to know which 
+	property need it and which don't need there are couple of plugins available for editors. or else we can check it online.
+
+--> To know whether particular css property is supported in different versions of different browsers we have website caniuse.com to check.
  
 	
 	
