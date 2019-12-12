@@ -184,9 +184,125 @@
 	property need it and which don't need there are couple of plugins available for editors. or else we can check it online.
 
 --> To know whether particular css property is supported in different versions of different browsers we have website caniuse.com to check.
- 
+
+--> One of the most famous method to build nice layout using pure css3 is flexbox. In flexbox we have parent element and several child elements.
+	we can render them in several different layout we can think of. There are several css properties we should learn if we want to use flexbox.
+	again some of properties are applicable for parent element and some of properties are applicable for the child elements. let's learn them one by one.
 	
+	parent-1:=> display: flex; perhaps this is starting point of play with flexbox. without this we shouldn't even talk of the flexbox.
 	
+	parent-2:=> flex-direction: row; by default this property has value row. this property can have four different values.
+				flex-direction: row; this means all child items inside parent will render in row. from begining of the parent lement.child-1,child-2..
+								from start. flex-direction: row-reverse; this means all child items will render in row but in reverse order. now 
+								intersting thing to note here is as direction is reverse that means childs will start rendering from end. child-1,child-2..
+								from end.      
+				flex-direction: column; this means all child items will render in column from start to bottom. child-1,child-2 ... from top to bottom.
+				flex-direction: column-reverse; this means all child items will render in column from bottom to start in upward direction. 
+								bottom to top. child-1,child-2 ...
+	
+	parent-3:=> flex-wrap: nowrap; by default this property has value nowrap. this property has three different values. Sometime let's say we have 
+				                   too many child items in parent and they can not fit horizontally or vertically in parent (mostly horizontally).
+								   In this case we should use this property.
+				flex-wrap: nowrap; this means there should not be wrapping at all. all child should stay on same horizontal flow. and create scroll bar if 
+				                   childs are overflowing out of parents.
+				flex-wrap: wrap; this means extra childs should appear on next row/column in parent if they are overflowing out of parent element.
+								 if flex-direction is row they will appear on next row. and if flex direction is column then on next column.
+				flex-wrap: wrap-reverse; first of all there would be wrapping means extra childs will appear on another row or column depending
+					                     on flex-direction. here difference is end row/column will appear first. ex. if we have 12 child and only 9 can fit
+										 in first row then we will have another row/column for remaining 3. but while rendering in browser.
+										 first row will contain those last 3 child and second row will contain first 9.
+										 ex. c-10 c-11 c-12
+										     c-1 c-2 c-3 c-4 c-5 c-6 c-7 c-8 c-9
+	
+	parent-4:=> flex-flow: val1 val2; this is not exactly the new property of preant element but it's shorthand property for mixing both flex-direction
+	                                  and flex-wrap. first value is value for flex-direction and second one for flex-wrap. ex. flex-flow: row wrap.
+	
+	parent-5:=> justify-content: flex-start; flex-start is default value for this property. this property has 6 different values. this property is important for
+	                             positioning childs inside the parent elements.
+				justify-content: flex-start; this will poistion all child elements at the begining of the parent. again in case of flex-direction:row-reverse
+				                 beginning of flex will opposite to that of flex-direction:row. same applies for column as well.	
+				justify-content: flex-end; this will poisition child elements at the end of parent element. again in case of flex-direction:row-reverse
+				                 end of flex will opposite to that of flex-direction:row. same applies for column as well.
+				justify-content: center; this will position the child element at the vertically or horizaontally middle of parent element depending on it'same
+								 flex-direction. it will leave equal amount of space from both side and child elements will appear at center.
+				justify-content: space-between; this means first child item will appear at begining and last at end. and in between them there will be equqal 
+				                 amount of space left in between all element. however there will be no space before first element and after last element.
+				justify-content: space-around; this means first child item will appear at begining and last at end. and in between them there will be equqal 
+				                 amount of space left in between all element. also there will be space before first element and after last element. however
+								 amount of space before first element and after last element is less than that of space between the element.
+				justify-content: space-evenly; this is exactly similar to space-around value of this property. difference is in this case space in between
+								 child elements is same as that of space before first element and space after last element. so equal space.
+	
+	parent-6:=> align-items: stretch; stretch is default value for this property. with justify content property we can position or align items in horizontal
+							 scale when flex-direction is row and in vertical scale if flex direction is column. but this property help us align child
+							 elements to align them in vertical scale when flex direction is row and in horizontal scale when flex-direction is vertical.
+				align-items: stretch; this means child elements will have height equal to parent even if they are smaller. they will acquire all vertical 
+				             space except margin of child element and padding of parent element. however if we explicitly give some height to child then 
+							 for that particular child given height will get applied.
+				align-items: flex-start; this means when flex-direction is horizontal child elements will be placed at start of vertical scale.
+				             if parent has heigh 500px and children have 100px then in this case vertically top 100px will be occupied by children.
+							 this would be reverse if flex-direction is column then align -item:flex-start will place them horizontally at the beginning.
+				align-items: flex-end; this means when flex-direction is horizontal child elements will be placed at end of vertical scale.
+				             if parent has heigh 500px and children have 100px then in this case vertically bottom 100px will be occupied by children.
+							 this would be reverse if flex-direction is column then align -item:flex-end will place them horizontally at the end.
+					         we now can easily sense that if we change flex-direction then whatever justify content do in row same thing align item do when 
+							 flex direction is column.
+				align-items: center; this means all child items will appear vertically at middle of parent element. if child elements have different
+				             heights then vertical middle of parent will resemble to that of vertical middle of all child elements.
+				align-items: baseline; this means baseline of child element will resemble with that of baseline of the parent element.
+				             baseline is nothing but bottom of text. i.e. line just above which text would have rendered in that particular element.
+	
+	parent-7=> align-content: stretch; default value for this property is stretch. justify-content and align-items properties make sure to take care of
+	                          alignment and positioning of each child elemetn within single row or column depending on flex-direction. Now let's say we 
+							  have so many child elements in parent element that after wrapping they form multiple rows or columns depending on flex 
+							  direction in this case this property align all rows or columns withing parent element. align group of child elements 
+							  in parent element.
+			    align-content: stretch; This means that if flex-wrap is causing to make more rows or columns depending flex-direction then all rows/columns
+				               will get stretched in equal amount so that they will fit in parents height/width depending on flex-direction.
+				align-content: center; this means multiple rows or column will align at center.
+				align-content: space-between; there will be equal space between rows or cloumns but there will not be space before first column/row and
+				               after last column/row.
+				align-content: space-around; this means there will be equal amount of space in between rows/columns. Also there will be space before 
+				               first row/column and after last row/column however space after last column/row and before row/column is less compared to 
+							   space in between rows/columns.
+				align-content: space-evenly; this means there is eqlal space between rows/columns. Also there is same amount of space before first row/column
+				               and after last row/column.
+				align-content: flex-start; this means all rows/columns will start from begining of parent element without leaving space anywhere.
+				align-content: flex-end; this means all rows/columns will start from end of parent element without leaving space anywhere.
+	
+	child-1=> order:1; by default this property has value 0 which does nothing. This property is used to decide which child should render first.
+	                   if we do not give order then all child elements will render in sequence they are present in html. order=1  will make element
+					   to appear first even if that element is present as last child element.
+	
+	Child-2=> flex-grow:2; default value for this property is 1 which dosen't make any difference. depending on number of child sometime they occupy equal space 
+	                       in parent contaiiner. but let's say one of child is removed and hence that blank space amount will be divided by all remainig element.
+						   so while dividing that space among remainig child elements if child element has property flex-grow:2; this means this element will
+						   take 2 times space than other elements. Don't missunderstand that this element will be 2 times bigger than rest elements.
+						   if there are 4 child element each of 120 px and parent element has width 480px. now one of child element is removed so ideally.
+						   remaiinig space will be equally divided. so width of each 3 child would be 120 + 120/3 = 160. however if one of child has property
+						   flex-grow:2 then what will happen is he will take two shares while dividing space. so it will take 60px and remainig element will
+						   take 30px each. so new width of all elements will be 180px, 150px and 150px.
+			  
+	child-3=>flex-shrink:2; default value for this property is again 1 which dosen't make anything. this is exactly same as flex-grow with just opposite 
+			                 impact on element. when extra element is added and rest elements have tos shrink in order to accomodate newer one then 
+							 one with this property will shrink given number of times compared to other. for understanding full illustration read flex-grow 
+							 description.
+			  
+	child-4=>flex-basis: 200px; default value for this property is auto again which does nothing. As we see in flex-shrink and flex-grow that soome time 
+							 child elements get shrink or can expand size if container size is increased. As we know they may gain equal pixels or 
+							 loose equal pixels after resizing of container. However initially we can give some child element some initial width.
+							 which is nothing but flex-basis. now in future if they grow then again this element can also gain or loose it's size but 
+							 only from original given size. 
+	
+	child-5=> flex: fg fs fb; this is short hand property for combining flex-grow, flex shrink and flex-basis. sequence of values is same as given.
+	
+	child-6=> align-self;center; this proepry actually override anything given from container by align-item property. again this property can take below values
+	                         which are preety similar to align-items. center,flex-end, flex-start, stretch, basline and auto. auto means whatever width
+							 element.
+				
+		
+					      
+					
 	
 	
 	
