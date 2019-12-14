@@ -299,6 +299,9 @@
 	child-6=> align-self;center; this proepry actually override anything given from container by align-item property. again this property can take below values
 	                         which are preety similar to align-items. center,flex-end, flex-start, stretch, basline and auto. auto means whatever width
 							 element.
+							 
+--> When we want to create flexbox, first thing we do is disply:flex; in this case container will occupy whole width. if we say display:inline-flex;
+    everything we saw until now will work except container will have width according to content and not full width.
 				
 		
 					      
