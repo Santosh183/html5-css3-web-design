@@ -418,10 +418,46 @@
 	           font size of child element is not 1.5rem but 24px. because parents value are calculated first and then they are applied on child element.
 	
 
---> 
+--> like border of element we have outline but here are the key differences.
+	outline is not part of css box-model but border is. outline dosen't respect border-radius or something like that.
+	if we increase border overall of size of element will increase as it's part of the css box-model. In case of outline width of element remain same.
+	But outline width may overlap with other element. it will make other content to hide behind it.
+	If we apply both outline as well as border both then after padding border comes first and then comes outline. 
+
+--> Every element in browser can be considerd as reactangular box and this is famously called as css box model.
+	in Box model fron center of box innermost is content of element which has height and width of element. 
+	then comes the padding of element. then comes the border of element and finally the margin of element.
+	total dimension of element consist of content width, width and border. so if we keep on any of them then total dimension size of element 
+	will increase in the browser.
+	When we apply background color it get applied to all area covered by dimensions. Even border will get background color if we don't give it color explicitly.
+	margin is around the element hence background color will not get applied to it.
+
+--> As we saw in box model total dimension of element = padding + border + content width. Now when we say width: 100px border:1px and padding:10px
+	that means  total width of element will be 100px + 20px + 2px = 122px. If we want padding and border to be part of width itself then we have important css 
+	property called box-sizing: border-box; In this case total dimensional width of elemtn would be just 100px.
 	
-				
-		
+--> we have usually elements of of two type inline element or block elelment. we also can make elelemnt inline or block by display property.
+	by default p , div,  all heading tags are block level element and other tags such as buttons, form elements, span etc are inline elements.
+	display: inline; we can not apply width and height in this case. there is no line break after and before element. width would be equal to contents width.
+	                 we can apply padding to all side but display:inline element but margin we can add horizaontally. padding works on all side.
+					 
+	display: block; we can apply width and height in this case. there is line break after and before element. width would be equal to contents 
+					width + padding + border. we can apply padding and margin both to all side.
+	display: inline-block; exactly similar to block element except that it's width would be equal to contents width and there is no line break before and after.
+
+--> when we say width:100%; that means contents width would be 100% and anything extra like padding , margin and border will make it's parent element to scroll.
+    obviously we can get rid of thay using box-sizing: border-box;
+	when we say width:auto; that means block level element will have 100% width but padding , margin and border are included in it and it's parent element 
+	will not scroll.
+
+--> when we apply float propoerty all subsequent elements will ge impacted. to avoid it we can say clear:right/left/both; on element wheere we want to stop.
+
+--> position: static; Default value. Elements render in order, as they appear in the document flow	
+	position:absolute;	The element is positioned relative to its first positioned (not static) ancestor element	
+	position:fixed;	The element is positioned relative to the browser window	
+	position:relative;	The element is positioned relative to its normal position, so "left:20px" adds 20 pixels to the element's LEFT position	
+	position:sticky; The element is positioned based on the user's scroll position element will be not fixed until it goes to top or bottom of parent element.
+	         and once it goes to that position it will get fixed there.
 					      
 					
 	
