@@ -74,15 +74,16 @@
     left:50%;
     transform: translate(-50%,-50%);
 	It naturally cone in mind like if we push element from left and top by 50% then it will come at exactly middle of it's parent. taht's true why do we need to
-	translate it by -50% then? Actually by moving element from top and left by 50% either by margin or top-left element comes in middle of screen but from that point
-	width and height of elements begin from that pixel and then it's width and height make it look like moving little more towards right 
+	translate it by -50% then? Actually by moving element from top and left by 50% either by margin or top-left element comes in middle of screen but from that 
+	point width and height of elements begin from that pixel and then it's width and height make it look like moving little more towards right 
 	and bottom. Element would have been exactly at middle of the parent element if middle of child element is at middle of parent.
 	but in our case middle of parent has start of child. In order to make middle of child at  midle of parent we need to move child element
 	left and top by half of it's size. so we are translating child element by -50%. IMportant thing to note here is -50% used intranslate
 	refers to 50% of element itself but when we say 50% for margin or top it's 50% of parent 
 
 --> when we want to write something on the image we can make image look darket by applying linear gradient.
-	background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(img/hero.jpg);
+	background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url(img/hero.jpg); here whatever comes first will get on top other. so in this case 
+	background gradient will be on top with some opacity.
 
 --> When we gives font-size in percentage, it would be % of font size of parent element. this holds true for other properties as well. such as 
 	line height, letter-spacing etc. but not for padding and margin.
@@ -302,6 +303,123 @@
 							 
 --> When we want to create flexbox, first thing we do is disply:flex; in this case container will occupy whole width. if we say display:inline-flex;
     everything we saw until now will work except container will have width according to content and not full width.
+
+--> clip-path is property by which we can give different shapes to the element. we need to mention coordinates of shape we are wishing for.
+	shapes could be different such as triangle, polygon (quadrilateral) etc.
+	clip-path: quadrilateral(x y, x y, x y, x y); here x and y denotes the coordinates of the each of corner of quadrilateral. now whatever diagram 
+	these coordinates makes will be our final shape and not clipped. x can take value in pixel or percentage and same or y as well. here
+	percentage is relative to width of parent but to element itself. ex. polygon(0 0,100% 0,100% 75vh, 0 100%);
+
+--> when it comes to main heading our web site it must be in h1 tag because that is where google search for so useful for SEO we can put subsequent headings
+    in h2, h3 etc.
+
+--> Perhaps simplest way to create simple animation is using transition property. However as name suggest it's sufficient only for the simpler animations.
+	to build relatively complex animations we have keyfreames. In this case first we need to define animation with name and then after we have to apply it 
+	to any selector we wish to apply. kind of reusability by default. below is syntax for defining animations.
+	
+	@keyfreames animationName {
+	
+		0%{
+			what should happen when animation is yet to start.
+		}
+		20% {
+		    what should happen when animation is 20% completed.
+		}
+		100%{
+			what should happen when animation is completed.
+		}
+	}
+	we have mentioned steps in above set up. we have to keep number of steps. however sometimes it's difficult to give number of steps for some properties.
+	ex. let's say we have to change width of element from 1px to 100px it's bad idea to put 100 steps. another example is changing background color
+	 from blue to red. it's difficult to put steps. in such cases we have from and to properties to define the range as defined below.
+	@keyfreames animationName {
+	
+		from {
+			width:1px;
+			background:blue;
+		}
+		to {
+			width:100px;
+			background:red;
+		}
+	}
+	obviously we can have wide range from 0% to 100% and we can give as many number of steps as we want.
+	while using it we just have to give animation name in selector.
+	.animate-me {
+		animation-name: animationName;
+	}
+	apart from animation name we can set couple of other things here. some of them are worth knowing.
+	1) animation-duration: this is duration which animation will take to complete it. so whatever steps in keyframes we are defining in % that  is nothing but 
+	   percentage of this duration.
+	2) animation-delay: 1s (we can give in decimal seconds as well). this property is amount of time if we want to wait before animation start. after loading page 
+	   may be we want to wait for few seconds and then animation should start.
+	3) animation-iteration-count: we can give integer value to this property. this property is number which determine how many times we have to repeat animation.
+	   if we want this animation to happen repeateadly then we can say animation-iteration-count: infinite;
+	4) animation-timing-function: we saw that we with animation-duration and steps in keyframes we can determine at what time what should happen? however
+	   still question remains and that is at what speed? how fast animation would be at particular moment.? Now obviously it's going to complete in given time
+	   duration we can do something like it's slow in begining but fast at end etc.
+	   linear:	The animation has the same speed from start to end	
+	   ease:	Default value. The animation has a slow start, then fast, before it ends slowly	
+	   ease-in:	The animation has a slow start	
+	   ease-out:	The animation has a slow end	
+	   ease-in-out:	The animation has both a slow start and a slow end	
+
+--> backface-visibility:hidden; when we rotate element 180 degree using rotate or property or something else opposite site of element will get visible.
+	we can set this to hidden.
+
+--> When web page get loaded below steps happens behind the scene.
+	1) Web page load raw HTML and parse that HTML to form DOM(Document object model) DOM is tree like structure of all elements present in html.
+	2) Just after loading HTML web page load CSS present in the head tag of the html. And parses it it to form CSSOM (CSS Object mdoel)
+	3) By combining both DOM and CSSOM we get render tree , which again is tree like structure of all elements but with proper CSS
+	4) Visual formatting model take render tree and finally render the visual page we see.
+
+--> While creating CSSOM out of css browser parse the css and while parsing first it resolve conflicts. conflicts here arise when single element have multiple styles.
+	there are certain rules of precdence of the css rules.
+	1) css properties marked with !important overrides all other css properties.
+	2) inline css override the other css like ids, classes or elements.
+	3) Id > classes > element-name this is order of precdence of the selectors.
+	4) if both selector don't have inline css or id and have classes selector. again one which have more number of classes in selector will override other.
+	5) if number of classes are also same then order of source which file was included last in html head element will override other.
+	6) usually we should add our custome css files at end while including in html file.
+
+--> parsing of CSS3 happens in two small steps. first it resove conflicts of css properties. i.e. if there are lot of css properties using different 
+    selectors then it decide which one to apply depending on css precdence. In next and second step it resovle all relative units while rendering like %, vw,vh etc.
+
+--> In css we can use differnt units give font-size ,width , margin , padding etc. some of units are absolute and some of them are relative.
+	 absolute units: cm, mm, inch, px, pt (inch/72), pc (inch/6)
+	 It's important to understand relative units.
+	 1) em: this unit is usually used for font size and relative to current font size of element. if element don't have font-size then it must be inheriting 
+	        from parent element and so on. let's say element currently have font-size: 16px then if we give font-size: 1.5em means  1.5 * 16 = 24px.
+	        although it's relative to font-size of element it's not just restricted to use for font-size we may use it at other places as well.
+			IMportant: when we use em unit for width, padding etc then em will refer to font-size of current element and not parent element.
+			however if we want to use this for font-size then it will relative to font-size of parent element.
+	 2) rem: relative to font size of the root element. Now in HTML5 root element is nothing but html element. if we set font-size 24px to root element.
+	         we further can give relative font size to all elements within html tag using rem unit. it's just relative to that root elemet's font value.
+			 again it's not restricted to just fon't size.
+	 3) vw: 1vw means 1% of width of viewport.
+	 3) vh: 1vh means 1% of height of viewport.
+	 4) vmin: 1 vmin means 1% of minimum dimension of viewport i.e if viewport is 100x200 then it would be 1% of 100px.
+	 4) vmax: 1 vmax means 1% of maximum dimension of viewport i.e if viewport is 100x200 then it would be 1% of 200px.
+	 5) percentage: this is always relative to parent elemetn. be it font size , width ,padding or else. 
+	 relative font size is extremly important while designing responsive web pages, especially rem unit.
+	 for responsive design we should set root font-size: in percentage. if we don't set anything by browser setting it's 16px. so if we
+	 want to reset root size in our css instead of doing. html {font-size:10px} we should html{font-size:62.5%} because 62.5% of 16 = 10
+	 and in this case if user change browser setting to larger font then our root font size will also get changed relatively because of percentage.
+
+--> You might have seen value inherit for most css properties when you inspect the browser. When we don't define any css property for any child element
+	it inherit the that css property from parent element. This is called inheritance in CSS3. Now important thing here is not all properties are inherited.
+	We don't need to remember which properties get inherited and which don't get inherited. We can just use our common sense. ex. imagine if properties such as 
+	padding, margin are getting inherited from parent element to all it's child, grandchild and so on... it would be mess.
+	So we can ask ourselves which properties can be safely inherited ex. background-color, font related properties etc. properties which are not inherited 
+	are like padding, margin ,position in fact all who moves element.
+	although inheritance is applicable by default for some of properties as we have seen however we are always free to tell browser explictly that 
+	for this element inherit this property from parent. ex. padding: inherit; now we are explicitly telling that inherit padding from parent element.
+	important: Here is most important thing about the inheritance. Let's say parent has 1.5rem and our root element has font size 16px.
+	           font size of child element is not 1.5rem but 24px. because parents value are calculated first and then they are applied on child element.
+	
+
+--> 
+	
 				
 		
 					      
