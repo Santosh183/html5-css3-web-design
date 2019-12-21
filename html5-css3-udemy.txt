@@ -65,8 +65,9 @@
 	Viewport: It is your device screen.
 	Window: It is your browser window. The window can be as big as viewport or smaller.	
 
---> when we set background-mage for any element by using background-image: url(img/hero.jpg); image size will not fit with element size. tomake that happen we 
+--> when we set background-image for any element by using background-image: url(img/hero.jpg); image size will not fit with element size. tomake that happen we 
 	have to apply    background-size: cover; now in order to make image at center of the page we have to apply    background-position: center;
+	background-position is useful when image is larger than element itself.
 
 --> We have often seen below code to make any element 
 	position: absolute;
@@ -458,15 +459,154 @@
 	position:relative;	The element is positioned relative to its normal position, so "left:20px" adds 20 pixels to the element's LEFT position	
 	position:sticky; The element is positioned based on the user's scroll position element will be not fixed until it goes to top or bottom of parent element.
 	         and once it goes to that position it will get fixed there.
-					      
-					
+
+--> sass is css preprocesor that adds power and elegance to the css. We write sass code which is elegant compared to css and then compiled it back to css 
+    to use in browser. we need to process sass code to css before we use it in browser thats why it's called as css preprocessor.
+
+--> Below are some of highlight of sass.
+	1) variables: we can use variables for different purpose such as color, spacing etc. otherwise in css if we want ti change color we will have to
+       change it everywhere where that particular is used.
+	2) Nesting: we can write css selectors one inside other in sass.  due to this outer selector becomes the parent of inner selector and outer properties
+	   get applied automatically to the inner child element. this minimise the rewriting the css properties which common for both parent and child element.
+	3) OPerators: in sass we can use mathematical operators.
+	4) Partials and Imports: in sass we can import other sass files in current file. this is very useful when we want to breakdown css into multiple files.
+	5) Mixins: we can write resuable code.
+	6) functions: similar to mixins which return value which can be used anywhere we want.
+	7) Extends: like parent and child smares similar properties. if we want to share some properties form othere selector we can extends those rules in other 
+	   selector.
+	8) control directives: we can write complex code using conditions and loops although it's not needed in most of real projects.
+
+--> while writing sass code we can write it in two types of syntaxes. sass and scss. in sass curly brackets are not used to enclose css properties.
+	while on other hand in scss we use curly bracket to enclose css properties. Since scss and css have similar syntaxes mostlr devlopers use scss syntaxes.
+	scss stands for sassy css.
+
+--> in sass for declaring variable we have syntax $variableName: value;  and while using  background-color: $variableName;
+
+--> in sass nesting we can nest parent and child element like below.
+	ul {
+	    background: yellow;
+		
+		li {
+			font-size: 20px;
+		}
+	}
+	without scss we need to rewrite this as ul {} and ul li {} respectively. which is like writing more code.
+	also another thing is when we style pseudo classes of element we have to add another selector but scss we can do as below.
+	li {
+		color: blue;
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+	this is similar to li{} and li:first-child{} two selectors. & in this case works as this keyword. i.e. curret selector.
+	we can use & fo styling differnt pseudo classes like :first-child,:hover,:link,:active,:visited also for pseudo elements like ::after, ::before.
+
+--> when we have container and all childs within it are floating left or right. then in this case height of element becomes zero. this happens if we do 
+	not cleared floating property. to fix this we have .clearfix class in bootstrap however we also can create that class. just add clearfix class on parent and 
+	then .clearfix::after { content:''; display:block; clear:both}
+
+--> In sass we have some inbuilt functions which could be handy sometimes. ex. darken(color-value, x%); where x is percentage by which we want to darken the color.
+	similarely we have lighten(color-value, x%) . we can explore more such functions on google.
+
+--> In sass we have another feature which is mixin. it is nothing but multiple line of codes stored in variable which we can use over and over.
+	@mixin mixin-name {
+		color:blue;
+		&:hover {
+			darken(blue,10%);
+		}
+	}
+	now while using we can use it by include keyword.
 	
+	a {
+		@include mixin-name;
+	}
+	all the code lines in mixins will get applied to selector from where we are calling mixin.
+	we also can have parameterized mixin.
+	@mixin mixin-name($value) {
+		color:$value;
+		&:hover {
+			darken($value,10%);
+		}
+	}
+	now while using we can use it by include keyword.
 	
+	a {
+		@include mixin-name(blue);
+	}
+
+--> similar to mixin we also have function in sass. difference between them is, Mixin replace code line of deifinition when we called, and function
+	simply do some logic and return signle value at the end.
+	ex.
+	@function foo($a,$b) {
+		@return $a/$b;
+	}
+	and while calling just foo(60,2);
+	important: we can multiply result by unit to make meaningful value. ex  foo(60,2) * 1px = 30px similarelywe can multiply by any unit wewant.
+
+--> similar to mixin and functions we have another concept called @extend.
+	we can wrap some of properties in %extend-name {} at top of file and then we can call it anywhere we want similar to mixin.
+	%extendplaceholder-name {
+		font-size: 10px;
+		color:black;
+	}
+	while using 
+	li {
+		@extend %extendplaceholder-name;
+	}
+	question quickly arise in our mind is how it's different from mixins? well in mixin we can pass variable if we want.
+	another and most important difference is when we call mixin all code lines enclosed by mixin will ge copied at the place where we have called mixin.
+	where on other hand in case of extends code remains at his defined place only but selector from where we are extending will get copied and pasted as 
+	comma seperated selector. so this is how differntly work behind the scene although most of the time task can be done either one of them.
+
+--> in css strictly color: rgba(233,45,67,0.8); in scss we can write as rgba(#dfg,0.8);
 	
+--> npm is node js package manager tool. using that we can install and manage bunch of js libraires and packages which are really usefull.
+	when we install node js we get npm by default with node.
+
+--> npm init help us to start with node packages. npm init creates package.json for us.
+
+--> npm install packageName ; command is used in cmd to install node ackages. if we add flag --save-dev that package will be added as dev dependency
+	in our package.json. similarely --save means dependency (library which our code might use.)
+	ex. npm install node-sass --save-dev  for compiling our scss to the css code. as we will use it locally for compilation it is dev dependency.
+
+--> why we need package.json? because it contain summary of all packages we are using in our project. if we want to deploy our code or want 
+	to upload our code to git then we can't push all libraries it's not needed simply we will push package.json. and then after we can use just
+	npm install to use all dependencies from package.json.
+
+--> npm uninstall is used to uninstall unwanted packages.
+
+--> using node-sass we can compile scss to css so that browser can understand it. to do so command is 
+	node-sass scssfullfilepathandname cssoutputfilepathandname. generally we write such command in scripts within package.json. in scripts array in package.json
+	we can list out our nicknames for all commands we are going to use in our code.
 	
+	  "scripts": {
+		"node-sass:compile": "node-sass sass/main.scss css/style.css",
+	  }
+	we can have comma separated multiple such scripts to make our life easier so that we don't need to write lengthy commands again and again.
 	
+	 node-sass my-styles.scss my-styles.css: compiles a single file manually.
+	 node-sass my-sass-folder/ -o my-css-folder/ : compiles all the files in a folder manually.
+	 node-sass -w sass/ -o css/ compiles : all the files in a folder automatically whenever the source file(s) are modified. -w adds a watch for changes to the file(s).
+	 further we can add options like --output-style compressed to make css output minified and compresses
+
+--> 
 	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
