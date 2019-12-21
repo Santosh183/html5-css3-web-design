@@ -500,6 +500,20 @@
 	}
 	this is similar to li{} and li:first-child{} two selectors. & in this case works as this keyword. i.e. curret selector.
 	we can use & fo styling differnt pseudo classes like :first-child,:hover,:link,:active,:visited also for pseudo elements like ::after, ::before.
+	Although it is very useful for pseudo classes and elements it not only limited to them. if we give naming carefuly to classes then it also can be 
+	applied to form child class name.
+	ex. .parent{ parent css..}  .parent_child_1{child1 css..} .parent_child_2{child2 css..}
+	now what we can do is we can nest child inside parent like below.
+	.parent{	
+		parent css..		
+		&_child_1{
+			child1 css..
+		}
+		&_child_2{
+			child2 css..
+		}
+	}
+	in above example what happen is & will get replaced by current selector .parent so that to foem child class name.
 
 --> when we have container and all childs within it are floating left or right. then in this case height of element becomes zero. this happens if we do 
 	not cleared floating property. to fix this we have .clearfix class in bootstrap however we also can create that class. just add clearfix class on parent and 
@@ -588,6 +602,11 @@
 	 node-sass my-sass-folder/ -o my-css-folder/ : compiles all the files in a folder manually.
 	 node-sass -w sass/ -o css/ compiles : all the files in a folder automatically whenever the source file(s) are modified. -w adds a watch for changes to the file(s).
 	 further we can add options like --output-style compressed to make css output minified and compresses
+
+--> in Angular we get server automatically. When we work on html5 and css independently we don't have that one. as a result when we do some changes in our code
+	each time we need to refersh the web page to see those changes in browser. node js package manager npm has live-server which can give us free server.
+	once it's installed by npm install -g live-server then all we need to do is go to project folder which contain index.html (must has name index.html)
+	then we have to run command live-server. then automaticallyit keep watch on any file change and once it detect changes in css or html it reload the page.
 
 --> 
 	
