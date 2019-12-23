@@ -1,0 +1,33 @@
+@keyframes leftToRight {
+    0%{
+        transform:translateX(-100px);
+    }
+    80%{
+        transform:translateX(10px);
+    }
+    100%{
+        transform:translateX(0px);
+    }
+}
+@keyframes rightToLeft {
+    0%{
+        transform:translateX(100px);
+    }
+    80%{
+        transform:translateX(-10px);
+    }
+    100%{
+        transform:translateX(0px);
+    }
+}
+@keyframes moveInBottom {
+    0%{
+        transform:translateY(30px);
+    }
+    80%{
+        transform:translateY(2px);
+    }
+    100%{
+        transform:translateX(0px);
+    }
+}
