@@ -138,6 +138,7 @@
 	 this means T/B and R/L values are addition to this spread and hence if we want shadow of equal amount from all side we should give spread
 	 value and make T/B and R/L 0px. 
 	Last value is color of the shadow.
+	similar to box-shadow we have text-shadow properties which works almost same except it get applied to text within element.
 
 --> When designing forms we should always wrap up all form element in form tag. inside form we usually have one submit button 
 	which HTML5 explicitly provide us. <input type="submit" value="name to diaplay on button" />
@@ -366,7 +367,7 @@
 	   ease-in-out:	The animation has both a slow start and a slow end	
 
 --> backface-visibility:hidden; when we rotate element 180 degree using rotate or property or something else opposite site of element will get visible.
-	we can set this to hidden.
+	we can set this to hidden. in opposite side we will se miror image of content otherwise.
 
 --> When web page get loaded below steps happens behind the scene.
 	1) Web page load raw HTML and parse that HTML to form DOM(Document object model) DOM is tree like structure of all elements present in html.
@@ -514,10 +515,12 @@
 		}
 	}
 	in above example what happen is & will get replaced by current selector .parent so that to foem child class name.
+	when we write & inside selector, resulting selector is separate selector and not child of selector inside which we are writing &.
 
 --> when we have container and all childs within it are floating left or right. then in this case height of element becomes zero. this happens if we do 
 	not cleared floating property. to fix this we have .clearfix class in bootstrap however we also can create that class. just add clearfix class on parent and 
 	then .clearfix::after { content:''; display:block; clear:both}
+	this is also required when all element have absolute position.
 
 --> In sass we have some inbuilt functions which could be handy sometimes. ex. darken(color-value, x%); where x is percentage by which we want to darken the color.
 	similarely we have lighten(color-value, x%) . we can explore more such functions on google.
@@ -608,9 +611,57 @@
 	once it's installed by npm install -g live-server then all we need to do is go to project folder which contain index.html (must has name index.html)
 	then we have to run command live-server. then automaticallyit keep watch on any file change and once it detect changes in css or html it reload the page.
 
---> 
-	
+--> when we work on really large project we have to design sass structure very carefully and meaningfully. we have to make separate files 
+    for animations, typography. also separate file for variables, mixins and functions. Not only file, if things goes more complex we can have different
+	subfolders in folder sass as well. This could seems really hectic but in long run especially for big project it's must have architecture.
 
+--> In css we have calc function which runtime calculate the values. ex width: calc(100% - 20px);
+	However in sass we may wish to pass variable within calc function. to do so we have take special care. we have to write variable as #{$variableName}
+	ex. width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
+
+--> In css we can write attribute selector. for ex .  img[src="val"] { css properties...} all images having  src attribute with given value will get those 
+	css properties. if we omit element name img then it will get applied to all elements which has attribute src with menntioned value. however we have something more 
+	interesting. class is nothing but one of the attribute of the element. hence we can style elements like [class="className"]{} We could have written this simply as 
+	.className {}. But attribute selector is not limited to = sign.
+	[class="col"] ==> all elements whose class name is 'col'.
+	[class^="col"] ==> all elements whose class name starts with 'col'.
+	[class*="col"] ==> all elements whose class name contains string 'col'.
+	[class$="col"] ==> all elements whose class name ends with  'col'.
+
+--> we earlier had seen clip-path properties. This property clip the element itself. background-clip properties clip the background of the element.
+	background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+    -webkit-background-clip: text;
+    background-clip: text;
+	color:transparent;
+	in above set up what we are doing is we are setting background of liner-gradient. Then we are setting color of the element to transparent. 
+	and finally clipping background tp the text. which means background will be visible for only space which is occupied by text. by this our text color 
+	should gradually darken at the end.
+
+--> for outline property we can provide extra property outline-offset:2px; what it does is, it can provide some space between element and outline.
+
+-->  .parent:hover .child:not(:hover) {} with this powerful selector we can target all child elements which are being not hovered currently.
+
+--> Using transform we can create all basic level structures and animations. we can make div look triangular and much more.
+
+--> we have css property filter which take multiple functions as value alonf with paramter to functions. with this propery we can create different effectson images.
+	ex filter:blur(5px) brightness(200%) contrast(200%); we can pass one or multiple functions along with parameter.
+	there are multiple functions like grayscale(%),invert(%) etc.
+
+--> for background-image we had background-size:cover which will cover all element and willl maintainaspect ratio of image. similarely for any child element 
+	we can have object-fit: cover; object-fit: fill; will not maintain asapect ratio.
+
+--> Video tag comes like below by default.
+	<video  src="" class="bg-video__content" autoplay muted loop> </video>
+	disadvantage here is we are able to provide only ony source at a time. if some browser or device is unable to play that particular format then it would be problem.
+	with below syntax we omit src and instead provide source tag with multiple sources. if top one is not supported then next source will be targeted and finally 
+	the warning which user will see if none of format is supported.
+	<video  src="" class="bg-video__content" autoplay muted loop>
+		<source src="img/video.mp4">
+		<source src="img/video.webm">
+		your browser can't play video use hrome laest version
+	</video>
+
+-->
 
 
 
