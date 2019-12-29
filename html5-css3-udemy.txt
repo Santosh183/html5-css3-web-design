@@ -661,22 +661,224 @@
 		your browser can't play video use hrome laest version
 	</video>
 
--->
+--> in linear gradient we can mention width percentage. at which width what percentage of color we want.
+	linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0) 50%), url(../../img/nat-10.jpg);
+	in above example at 50% we have white at some opacity which will create white background and immediately at same percentage we have transparent background 
+	with zero opacity so that means instead gradually changing from one color to other instantly two diff background we will able to see adjacent to each other.
+	just try above and see magic.
+
+--> input:placeholder-shown this pseudo class we can use to style input element when placeholder is there in element. so as soon as we type something
+	this selector will not be ther ein picture as placeholder will go away.
+
+--> div p :	Selects all <p> elements inside <div> elements be it grandchild or child.
+	div > p: Selects all <p> elements where the parent is a <div> element. here it's not for grandchild.
+	div + p: Selects all <p> elements that are placed immediately after <div> elements. Immediate sibling. let's say div has 2 siblings after it. only first one is targeted
+	div ~ p:	it's similar to  div + p. only difference is it will style all siblings.
 
 
+--> when we are dealing with radio buttons we need to group all of them so that when we select one radio button other which was previously selected will get disselected.
+	we have to give same name="" attribute value to all radio buttons in order to group them.
 
 
+--> In css there is no way to style some of elements like radio buttons, checkboxes etc. we always have to do some workaround for styling them nicely.
+	basic strategy is use pseudo classes of whether button is checked or not and then target that one. we have to create one dummy span element 
+	inside label and then style it using after. try to understand below code for styling radio buttons. more or less in same fashion we can style check boxes.
+	
+	<div class="form__radio-group">
+		<input type="radio" class="form__radio-input" id="large" name="radio-group">
+		<label for="large" class="form__radio-label">
+			<span class="form__radio-button"></span>
+			Large Group
+		</label>
+	</div>
+	
+	.form__radio-button {
+	  width: 3rem;
+	  height: 3rem;
+	  border: 5px solid #55c57a;
+	  border-radius: 50%;
+	  display: inline-block;
+	  position: absolute;
+	  left: 0;
+	  top: -.4rem; }
+	  .form__radio-button::after {
+		content: '';
+		display: block;
+		height: 1.3rem;
+		width: 1.3rem;
+		border-radius: 50%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #55c57a;
+		opacity: 0;
+		transition: all .2; }
 
+	.form__radio-input:checked + .form__radio-label .form__radio-button::after {
+	  opacity: 1; }
 
+--> in html5 layout we usually have 4 types of tags. <header></header> tag should contain all that is most attractive or anything user is suppposed to see quickly on web page.
+	navigation may be or may not be inside header tag. we have to resue heading styles for diferent heading tags like h1,h2, h3 etc. then for main conttent we have 
+	<main></main> tag.inside main tag we have to oganise different things in with differtn <section></section> tags. finally we have to put footer part inside footer tag.
 
+--> css grid is so powerful that we can stop using bootstrap. It's best way to handle two dimensional layout. Flexbox was capable of handeling one dimensional layout.
 
+--> To start with css grid we have to set display:grid  on parent caontainer. we also can put display:inline-grid; main difference is, inline-grid will 
+	form inline grid that means it will occupy width according to content and not full horizontal width. On t=other hand in case of gird it will occupy whole width 
+	of screen and then space will given to different columns.
 
+--> in css grid unlike flexbox here we can't change direction of flow. always horizontal flow is for rows and vertical for columns.
 
+--> here are the list of all properties that are applied for container.
+	1) grid-template-columns: this property specify number of columns as well as weightage(width) for each column. weightage here is not always necessarily to be percentage.
+	   it takes space separated value of weightage. number of values are nothing but number of columns and their values are weightage for them.
+	   grid-template-columns: 40px 50px auto 50px 40px; here there would be 5 columns. for 4 columns we have defined width and 3rd column has width auto which means take all 
+	                          remaining space. In case of inline grid 3rd one will not take whole width instead it will take width according to it's content.
+	   grid-template-columns: 25% 100px auto; there would be three columns. 3rd one will take all remainig width if it's grid. obviously that won't happen in case of inline=grid.
+	   --> before we go further we have to clear confusion of width units. here we have completely brand new unit for width which is fr. this one is used exclusely for 
+	       grid. percentage is always percentage of the whole container and not percentage of remaining space. hence 85% 100px is always bad practice because we never know
+		   if 100px is 15% or going to exceed that creating some problem. for hard coded values like px, rem , em they are safe to use straightforward to use.
+		   another value is auto and fr. auto and fr works exactly similar if we don't use them together. ex. auto 100px will be similar to 100px 1fr. fr is fraction of remaing 
+		   space. when we use auto and fr together fr win the race. In that case auto will be just like natural width of element according to it's content. 
+	   grid-template-columns: 40px repeat(4,50px); when we have to use identical width for multiple column we can use repeat function. here we will have 4 columns.
+	   we have another function to specify width grid-template-columns: 40px minmax(100px,1fr); this means width would be 1fr but if 1fr is less than 100px then it would be 100px.
 
+	important: In grid system we have grid lines between columns, at the begining of the columns and end columns. so if we have two columns side by side we will have 3 lines.
+		similarely we have those line in between rows as well. so vertical lines as well as horizontal lines. when we define columns we also can give name to all those line although 
+		it's optional. ex. 
+		1) grid-template-columns: [line1] 40px [line2] 50px [line3]; names are necessary because we can refer those lines in future for differtnt purpose.
+		2) grid-template-columns: [line1] 40px [line2] repeat(4, 20px [line]); in this case all rest lines will have same line but while refering them it won't create problem.
+								  while refering we have to give line name and count of line in case of repeat function. 
+								  grid-line: line count; where count is lien number in repeat sequence.
+		1) grid-template-columns: [line1] 40px [line2-1 line2-2] 50px [line3];  one line also can have multiple names.
+	
+	2) grid-template-rows: this property is preety similar to grid-template-columns. in case of columns we were able to define two things. how many columns we want 
+	   and width of the coulumn. In case of grid-template-rows we can specify  height of rows that are going to form. because obviously depending on number
+	   of column and available space number of rows will be decided automatically. for ex. by number of children and number of columns it seems that 5 rows are supposed to form.
+	   but if we give grid-template-rows: auto 20px 50px; then first row will have height auto (according to content i.e. auto work different for height ). second row
+	   will have height 20px, third one will have 50px and then after for remaining two will have height according to content. 
+	   fr unit nehave same as auto in case of height if we don't give give height to parent element. if we give height of parent element then as usual fr unit will be fraction
+	   fraction will take all reaming space.
+	
+	3) grid-template-areas: this property is used to define layout. we can specify here that any specific cel is going to occupy space of two columns.
+	   before we use this proeprty we also need to give name to child element which we want to refer.
+	   ex. .container {display:grid; grid-template-areas: 'header header header'} .item-1{ grid-area: header} in this case first child will occupy space of three columns.
+	   we can define this for all rows and column by giving values in matrix fashion. ex. grid-template-areas: 'header header footer sampleName
+																											    item-2 item-4 sample . .'
+       if we specify dot (.) instead of the area name then that space will left blank and not occupied of any of child element.
+	   if we have let's say 12 child and 4 colums are supposed to form. in this case if we make any child to make spawning over 2 columns by giving gird-area then 
+	   number of rows will automatically increase to for accomodating last childrens.
+	
+	4) grid-template: this property is short hand property of grid-template-columns, grid-template-rows and grid-template-areas. better we can skip using it as syntax
+	   could be complex.
+	
+	5) row-gap, column-gap, grid-gap: row-gap property accept hard coded legth in pixel, rem ,em or in percentage. it defines vertical gap betiween two rows. similarely
+	   column-gap property decides distance between columns. grid-gap is short hand property of row gap and column gap.
+	   ex. grdi-gap: 10px 20px; this will set row-gap to 10px and column to 20px. even one step further we can say grid-gap:10px; which will applied to both.
+	
+	6) justify-items: this property is applied on parent. it has value start, end , center and stretch. stretch means occupy full width. for any other value
+		width of items will be according to their content. there are couple of such properties and it's easy to get confused. so first let's assume each sell has 
+		4 side i.e. top, right , bottom and left. justify items puts item either at left , center , right or full width. default value is stretch.
+	
+	7) align-items: this again is similar to justify-items and has four possible values i.e. start, end, center and stretch. difference is align items put items 
+		either at top, center , bottom or full height. when value is not stretch item won't occupy full height and instead  it will be according to content.
+		default value is stretch.
+	
+	8) place-items: it's short hand property for bot justify-items and align-items. ex. place-items: start end;
+	
+	--> sometimes if we give hard coded value for width of the all items then total size of all cells combined may be less than the actual container size.
+		in that scenario we may have extra width , height or both. if we have extra height then we have to decide where to put whole container?
+		top, center, bottom, have to leave space between rows, have to leave space between rows as well as beginning and end of the row. to deicde this we have 
+		align-content. remember when we say align that means moving rows upwards upwards or downwards. similarely if we have extra width we have all those choices
+		but with columns. and we have justify-content property for this.
+	
+	9) justify-content: this property is applied on container when total width of all columns is smaller than container.
+		start: our grid will be placed at left side of container.
+		end: our grid will be placed at end of the container.
+		center: our grid will be placed at the center of the container (horizontally middle).
+		stretch: this will forcefully make our grid to occupy whole width. (in most cases we will not need this when we already have given fixed width to items).
+		space-around: space between columns and also at beginning and end of the columns. however beginning and end space is smalller than space between columns.
+		space-between: space between columns but not at beginning and end.
+		space-evenly: space between columns , space at start and also at end. but in this case all spacces of equal size.
+	
+	10) align-content: this property is applied on container when total height of all rows is smaller than container height.
+		start: our grid will be placed at top side of container.
+		end: our grid will be placed at bottom of the container.
+		center: our grid will be placed at the center of the container (vertically middle).
+		stretch: this will forcefully make our grid to occupy whole height. (in most cases we will not need this when we already have given fixed height to items).
+		space-around: space between rows and also at beginning and end of the rows. however beginning and end space is smalller than space between columns.
+		space-between: space between rows but not at beginning and end.
+		space-evenly: space between rows , space at start and also at end. but in this case all spacces of equal size.
+	
+	11) place-content: short hand property for justify-content and align-content. ex. place-content: stretch end;
+	
+	12) grid-auto-rows/grid-auto-columns : 	in order to understand these properties which are defined for container we have to understand some proeprties of grid items.
+		we have grid lines for from begining to end, vertically as well as horizaontally. if we have 2 columns and 2 rows then we will have three vertical lines and 3 
+		horizontal lines. we can specify for item, where it begin and where it end with the help of those line numbers. again we can specify line numbers or names
+		if we have given any names (read how to give name if want but numbering is straightforward). ex. grid-column-start: 1; grid-column-end: 4; or using shorthand
+		property grid-column: 1/4; this means that particular item start from vertical line 1 and end at vertical line 4. in same fashion we have grid-row-start and
+		grid-row-end or grid-row (short hand form). now imagine we have define grid such that it will have just 2 rows and three columns.
+		so if we think carefully grid will have 4 vertical lines and 3 horizontal lines. now in this case for any item let's say we specify grid-column: 5/6.
+		problem is line 5 and 6 dosen't exist. internally browser insert those many vertical and horizontal lines (horizontal lines in case of grid-row). but after 
+		inserting, resulting extra rows or columns will have zero width by default. using these properties we can specify width for them.
+		grid-auto-columns: 10px; grid-auto-rows: 10px; 
+		all above stuffs works fine when we explictly place any item using line numbers which dosen't exist. but we can specify grid-auto-columns and grid-auto-rows
+		even when we haven't placed items using line number which dosen't exist. but in that case that will get applied to all columns and rows as there is no extra
+		columns or rows inserted by browser. however those applied values will get overrideed by grid-template-columns/grid-template-rows.
+		columns and rows inserted by browser for adjustment often called as holes.
+	
+	13) grid-auto-flow: this proeprty is used to decide flow. let's say in html grid-container we have  6 items. we defined that we will have 2 rows and 3 columns.
+		now by default their appearance will be  1 2 3 on first row and 4 5 6 on second line. this behaviour is similar to grid-auto-flow: row; simply we are telling
+		fill rows first. we can also say grid-auto-flow: columns; which will start filling vertical lines first. so they will appear on browser like
+		1 3 5
+		2 4 6
 
+	Note:  float, display: inline-block, display: table-cell, vertical-align and column-* properties have no effect on a grid item.
 
-
-
-
+--> we saw all grid container properties now let's see grid items properties one by one.
+	1) grid-column-start: we have to give line number where item will start. we can place individual item at any place we want in grid. we can give line name if it has 
+		any.
+	2) grid-column-end: we have to give line number where item will end. we can place individual item at any place we want in grid. we can give line name if it has 
+		any.
+	3) grid-column: it is short hand property for grid-column-start and grid-column-end. ex. grid-column: 1/2; 
+	
+	4) grid-row-start: line number where item start. (horizontal line number)
+	
+	5) grid-row-end: line number where item ends. (horizontal line number)
+	
+	6) grid-row: short hand property of the grid-row-start and grid-row-end. ex: grid-row: 1/2;
+	 note: for both grid-column-end ang grid-row-end we also can provide some other value instead of line number ex. grid-column-end: span 2; here we are not saying
+	       line number 2 instead we are saying from wherever it start it will span for two columns. ex: grid-column: 2 / span 4; start at line number 2 and span 4 
+		   columns thenafter. we also can give name of line instead of number ex.
+		   grid-column: 2/ span line23; this means item starts at line 2 and span all columns until we reach at line with name line23;
+		   similar stuffs are applicable for grid-row properties as well.
+		   
+	7) grid-area: this property we can use in two differnt ways. first way is give it some name and that name then can be refered in propety grid-template-areas
+		of container. you can see grid-template-areas for more details of this usage. another usage is just simple, it's short hand property of grid-row and grid-column
+		grid-area: grid-column-start/grid-column-end/grid-row-start/grid-row-end. or grid-area: grid-column-start/span 4/grid-row-start/grid-row-end  and all possible types.
+		
+	8) justify-self: we saw justify-items. it was on grid container and it defines where all items should get place i.e.  start (left), center, end or stretch (full width).
+	   justify self achive same thing but on individual item. if we have justify-items on parent then for individual item jusstify-self will override it.
+	
+	9) align-self: we saw align-items. it was on grid container and it defines where all items should get place i.e.  start (top), center, end or stretch (full height).
+	   justify self achive same thing but on individual item. if we have align-items on parent then for individual item align-self will override it.
+	
+	10) place-self: this is short hand proeprty of justify-self and align-self. ex. place-self: start end;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	

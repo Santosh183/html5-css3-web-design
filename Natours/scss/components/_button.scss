@@ -10,12 +10,13 @@
         transition: all .2s;
         position: relative;
         font-size: $default-font-size;
+        outline: none;
     }
     &:hover {
         transform: translateY(-3px);
         box-shadow: 0 10px 20px rgba($color-black,0.2);
     }
-    &:active {
+    &:active, &:focus {
         transform: translateY(-1px);
         box-shadow: 0 10px 20px rgba($color-black,0.2);
     }
@@ -38,18 +39,7 @@
         }
         
     }
-    &::after {
-        content: '';
-        display: inline-block;
-        height: 100%;
-        width:100%;
-        border-radius: 100px;
-        position: absolute;
-        top:0;
-        left:0;
-        z-index: -1;
-        transition: all .2s;
-    }
+   
     &:hover::after {
         transform:scaleX(1.4) scaleY(1.6);
         opacity: 0;
