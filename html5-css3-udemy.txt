@@ -28,7 +28,8 @@
 	and content width would be 100px - 20px - 4px = 76px.
 	if padding + border goes beyond total width given then width of content become 0.
 
---> if we set margin to right and left to auto it will place element in middle of the screen horizontally. margin: 0 auto;
+--> if we set margin to right and left to auto it will place element in middle of the screen horizontally. margin: 0 auto; this will work for block elelemnt.
+	if we want to make inline elelemnts at center horizaontally then we have to apply text-align:center; on parent element of inline element.
 
 --> position:absolute for child and position:relative(or any other) to parent make child element to place at lefmost and top most position.
 	by applying right,left,top,bottom we can move child element within parent element. child element without top,left etc properties will
