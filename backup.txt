@@ -1,0 +1,373 @@
+--> javascript is interpreted language. JS engine compile it just before execution at run time. unlike other languages where compilation is one of step before
+	executing the code. in other lan
+	guage we have to compile ocde first and then execute that compiled code.
+
+--> without strict mode which can activated using "use strict" at beginning of the code. if we assign value to variable without declaring it then that variable
+	become global variable ex a=10; here if a was not declared and strict mode is not active then a becomes global variable. however this is true for only 
+	keyword var. if we try to do same using let or const keyword then it will throw error.
+
+--> related to declaration error there are two types of errors that occurs usually. if we try to access variable which is not declared then it is reference error
+	on other hand when compiler find variable declaration but we are performing illegal action with that variable then it will throw type error. ex. trying
+	to call normal variable as function. var a=10; a();
+
+--> when compiler try to find variable it first check current scope. if it can't locate it then it will search for variable in scope which is one step higher
+	and so on. finally it will check global scope if variable is not there in global scope as well then it will throw refernce error.
+
+--> if we have variables with same name in outer scope as well as inner scope with same name then from inner scope it will overshadow outer scope and in this
+	case we will not have access to outer variable from inner scope. when we declare variable in global scope and we declare another variable with same name in
+	inner scope then still we can access global variable by window.variableOrfunctionName because window is global object where all global properties are attached.
+	however this is not true for non global outer scope.
+
+--> scope of variables are decided by compiler when we write code. or in other words scope of variables is understood by compiler  by location where variable is 
+	declared. However in some cases we can trick compiler to disturb such scoping. look at below example.
+	function foo(str ,a) {
+
+		eval(str);
+		console.log(a,b);
+
+	}
+	var b = 12;
+	foo("var b = 23;",24);
+	note: eval function accept string as argument which should contain valid javascript code and it execute it.
+	here without eval function we are creating local variable which will overshadow the outer b=12; hence output will be 24 23. we are changing scope of variable
+	at run time. this is very bad coding practice because without eval js engine knows scope of variables before executing it and hence it optimize the code. 
+	however as eval() is resolved at run time js engine take extra time to execute it as it's not optimized code which affect the overall execution time of 
+	the code.
+
+--> when we use var keyword to declare in javascript it has function scope if variable is within funtion. when we declare lot of variables in global scope
+	after some time we may mess programm by redeclaring same variable. it could end up inducing some logical error  in our code. Good idea is to wrap some code
+	inside function as much as possible. 
+
+--> when we use multiple libraries in our code from different sources, if libraries are not coded in good manner and has lot of global variables then there are
+	chances that some of variables from different libraries may collide.
+	to deal with this dilemma we have two concepts in Javascript.
+	1) Global Namespaces: We can use global namespace. name space is nothing but object where all functionality and variables would be attached to it as
+		it's properties, so that variable collides will not happen.
+		ex: var globalNameSpace = {
+			foo: function(){},
+			var1: 'just variable'
+		};
+	2) modules: this is much modern approach where we can create separate modules for different purpose and then import it from code where we need it.
+	
+--> IIFE(immediately invoked function expression): functions without name which are invoked immedaitely. ex.
+	(function (a,b) { 
+		console.log(a+b);
+	})(5,50); will print 55.
+	IIFE dosen't ncessarily is anonymous function. we can give name to IIFE.
+	ex: (function foo(a,b) { 
+			console.log(a+b);
+		})(5,50); will print 55. alothough we have given name to IIFE we can't use it later as foo(1,2) as it's enclosed within bracket.
+	we may think, why not create just function instead of IIFE. there are certain advantages.
+	1) sometimes we may want to hide some code from outer world. encapsulation. variables declared in IIF are having function scope so they are not accessible from 
+	   outer world. we may create named function but problem here is we again need to call that function explicitly which is unnecessary. another problem is we are
+	   creating one function which may collide with other variable name or function name. as we are using this function only once it make sense to create IIFE.
+
+--> Anonymous function: function without name is called as anonymous function. we can use anonymous function in lot of places like in IIFE, in callback functions
+	ex. setTimeout( function () {
+		console.log('waiting for 1 second');
+	}, 1000);
+	whenever we have to use anonymous function we can replace them with inline function expressions. look at below code.
+	ex. setTimeout( function foo() {
+		console.log('waiting for 1 second');
+	}, 1000);
+	using anonymous function is highly not recommended for below reasons
+	1) when multiple functions calls are in stack traces it's difficult to locate our function as it's without name.
+	2) we may sometime want to refer function name from function itself. ex in case of recursion we want to call function itself.
+	3) even if we don't need name we can give name to function which readable and can help us to understand about code by it's name.
+
+--> for IIFE we have two valid syntaxes.  (function foo(a,b){ console.log(a+B);})(12,23); or 
+	(function foo(a,b){ console.log(a+B);} (12,23)) and both are valid one. both result insame output.
+
+--> when we declare variable with var keyword it create variable which has function scope. with var  keyword there is noway to create block scope variables.
+	{} is nothing but code block enclosed in  {}. some times we may want to create variable for only particular block. this could be very useful for using inside 
+	if statement or for loops. ex. when we iterate using for loop we may not need iterator variable outside loop which can create unnecessary problems.
+	in js in try catch statemet it provide block level scope for variables that we are pssing to catch block but they are useful only for error handeling within that block.
+
+--> let keyword is introduced in ES6 and used to declare variable which has block level scope. it is handy to declare variable inside if {} block or inside block like
+	for(let i=0;i<10;i++) {} we also can create block explicitly to hide variable with let keywords if we want.
+	ex. {let foo = function () { do something here} } foo(); will throw error as it is not accessible outside {} block.
+	for(let i=0;i<10;i++) {} console.log(i); here error will occur as i is not accessible outside of {} block.
+	for(var i=0;i<10;i++) {} console.log(i); here output will be 10. because i is accessible out side of {} block.
+	
+	note: another important difference between let and var keyword is, when we declare variable with let keyword it dosen't get hoisted.
+	ex. console.log(z); will throw error.
+		let z=10;
+	in case of var keyword 
+	ex. console.log(z); will print undefined as z don't have value yet but it will not throw error saying it's not declared.
+		var z=10;
+
+--> similar to let keyword ES6 also introduced const keyword which again has block level scope. difference here is const variable are constant and are not allowed to change
+	there value. ex. const r = 10 ; r=12; will result in error: Uncaught TypeError: Assignment to constant variable.
+	const variables are also not hoisted.
+
+--> Hoisting: this is one of important concept in JS world. Just before execution comiplation phase happens in JS. during that phase lot of stuffs happens like code 
+	optimization. One of such stuff is hoisting. Throughout the code JS engine check for declaration of variables and functions and keep it at top of their scope.
+	As those variables and functions are assumed at top by JS engine it has name hoisting.
+	ex. a=2;
+		var a;
+		console.log(a); // print 2 because var a; is assumed at the top of scope means even before a=2; statement.
+	1) note that only variable and function declaration is hoisted and not assignment. means assignment will happen at place where value is assigned.
+	   ex. console.log(a);
+	       var a=2; // will print undefined. because Js engine read var a=2; as cobination of two statements. first is var a; and second is a=2;
+		   from this Js engine put only declaration statement at the top of scope and not the assignments. hence while printing a was available so 
+		   no refernce error but value was not assigned to it hence undefined.
+	2) functions declaration are also hoisted at the top of scope. if have function definition and not function expression then it will be put at top of scope.
+	   ex. 
+	   foo(); // will print hello because function declaration is hoisted at the top of scope.
+	   function foo() {
+			console.log('hello');
+	   }
+	3) as we saw functions definition and declaration are hoisted at top of the scope but function expression are not hoisted.
+	   ex. foo(); // will throw foo is not function. still it not reference error.
+	       var foo = function() {
+				console.log("hello");
+		   }
+		// in above code compile will put variable declaration at top like var foo; then will call foo(); (obviously will throw error) and then will assign foo = function(){}
+	4) when we assign function as expression to variable then variable is available for calling that function but function itself won't be available by it's own name.
+		ex. 
+			var foo = function buzz() {console.log('hello')};
+			foo(); // will print hello
+			buzz(); // will throws refenrce error saying buzz is not declared.
+	5) when we have both function and variable declaration with same name then function has precedence over variable and hence variable declaration is ignored.
+		ex.
+			foo();
+			var foo;
+			function foo () {
+				console.log(1);
+			}
+			foo = function () {
+				console.log(2);
+			}
+		above code will print 1. because variable declaration var foo; is ignored by compiler assuming we already have function with that name. but we had declared variable
+		before function right? well after hoisting function goes at top of scope even above variables.
+	
+--> Closure: When function is returned from function it still remember it's original lexical scope (variables and functions of it's original scope) such function is closure.
+	ex.
+	function foo() {
+		var d = 2;
+		console.log(d);
+		var functionTemp = function () {
+			console.log(d);
+		}
+		return functionTemp;
+	
+	}
+	var temp = foo();
+	temp(); // will print 2
+	
+	temp collect function returned by  function foo(). all variables and function which were in scope of functionTemp are still accessible for temp as well.
+	1) though most common form of closure is returned inner function, we also can find closure in some other ways. like passed function as parameter ex.
+		function foo() {
+			var a=9;
+			function baz() {console.log(a);}
+			fooTemp(baz); // passing function as parameter here. that parameter is closure. because it will remember current scope whereever it go.
+		
+		}
+		function fooTemp(funcT) {
+			funcT(); // will print 9
+		}
+		foo();
+	2) one of the famous illustration of closure is inside setTimeout function like below.
+		for(var i=1;i<=10;i++) {
+			setTimeout(function doo(){
+				console.log(i);
+			},i*1000)
+		}
+		// output here would be 11 11 11 11 .. 10 times 11.
+		important thing here is whenever we encounter multiple setimeout statement in sequenece or in loop always sequence will get competed first.
+		in short always loop will complete execution first by setting time out function code for each iteration. now once for loop is ended we are out of loop.
+		so 10 functions which are ready to be executed are out of for loop now. they are closure now and will refer to i from loop only. i here in this case
+		is same and refered by all 10 closures. when loop ends at that time i would be 11. and hence 10 functions would print 11. so total 10 times 11.
+	3) When we want separate copy of variables for each function we need that variable in scope of that closure itself.
+		let's try to assign such variable for each function.
+		for(var i=1;i<=10;i++) {
+			( function () {
+				setTimeout(function doo(){
+				console.log(i);
+				},i*1000)
+				}
+			)();
+		}
+		// in above code we have created IIFE to execute setimeout statement but still functions are refering to outer i and that i is common for all of them.
+		   so still output would be 10 times 11. unsuccessfull attempt. let's try again.
+		  for(var i=1;i<=10;i++) {
+			( function (i) {
+				setTimeout(function doo(){
+				console.log(i);
+				},i*1000)
+				}
+			)(i);
+		  }
+		  // in above code i in console.log is not the i from for loop but it's i as parameter to function hence each IIFE has it's own copy of i which is being 
+			passed to the function going to be executed inside setimeout. each function call has it's own copy hence value is different for each copy.
+			so original i becomes 11 after loop ends but our 10 closures are no more refering to that value instead they are refering to local copy of i. whose
+			value was decided in it's own scope each time. output here would be 1 2 3 ..10.
+		another way could have been like below but anyway it's just another way to create local variable to that insider function.
+		  for(var i=1;i<=1;i++) {
+			( function () {
+			var j =i;
+				setTimeout(function doo(){
+				console.log(j);
+				},0)
+				}
+			)();
+		  }
+		// instead of passing parameter we are creating local variable with value of i inside function which again will give us output 1 2 3.. up to 10.
+		
+		// let (a=2) { console.log(a);} is valid grammer in js and similar to 
+		 {
+			let a =2;
+			console.log(a);
+		 }
+		 
+	4) as we have seen creating local scope to insider function will print from 1 to 10 so another way to create local scope is quite easy and we don't even need IIFE.
+	   let keyword has block level scope and hence each time it execute blocks {} it create new scope for each iteration with ewn value.
+	   for(let i=1;i<=10;i++) {
+				setTimeout(function doo(){
+				console.log(i);
+				},0)
+				
+		}
+		// in above code as we are declaring i with let which has block level scope it create fresh new copy of i for each iteration and hence prints  1 2 3 ..10
+	   
+
+--> Modules: Famous module pattern in JS is based on closures. look at the below code.
+	function ModuleExample () {
+		var privateOne = 'I am private One';
+		var privateTwo = 'I am private Two';
+		function printPrivateOne() {
+			cons.log(privateOne);
+		}
+		function printPrivateTwo() {
+			cons.log(privateTwo);
+		}
+		return {
+			first: printPrivateOne,
+			second: printPrivateTwo
+		}
+		
+	}
+	var tempModule = ModuleExample();
+	tempModule.first(); // will print 'I am private One'.
+	
+	We are wrapping some of functionality inside module and exposing only few to outside world. when we return some functionality in form of functions
+	those functions still have access to the inside private worls. In fact those function are closures.
+	we can return public API of module to outside world while hiding some inner functionality. Here we are achiving encapsulation.
+	
+	1) ES6 introduced standard syntax for modules. whatever we designed in normal js using module pattern is nothing but just function and compiler never treat it 
+	   differntly. Execution of function happen at runtime. However in ES6 each file is considered as separate module and we can export Public API from one file (module)
+	   so that other file (other module) can import those public API and use it.
+	   
+	   ex.
+	   
+	   file1.js inside this file we have below code.
+	   function introduce(who) { console.log("Let me introduce :" + who);}
+	   export introduce;
+	   
+	   file2.js inside this file 
+	   import introduce from 'fullpath/file1.js';
+	   var temp = "sample name";
+	   introduce(temp); // will print "let me introduce: sample name"
+	   
+	 // in ES6 modules compiler knows these are the modules even at compile time. and hence it check if imported API of any modules are present in exported module or not.
+	    otherwise it will throe error even before execution.
+
+--> Arrays, functions and everything except primitive data types are objects in javascript. However when we refer to this keyword from function, this dosen't refer to 
+	function object. ex.
+	foo = function () { console.log(this.a)} 
+	foo.a =5;
+	foo(); // will print undefined
+	// in above code foo was function object. since it was object we can add proeprty to object using dot operator so we added a property to that object.
+	// from function we refered to this keyword which will refer to global window object when we do not call function with new keyword.
+	// hence we were trying to access global variable a form function which is not present but the moment we wrote this.a it got added to gloabal object but with undefined
+	   value.
+	// there are three methods call, apply and bind which can decide what should be this keyword for function but it's different story.
+
+--> There are few ways how this behaves inside functions.
+	1) default binding: In this type this keyword refer to global window object by default.
+		ex.
+		function foo() {
+			console.log(this.z);
+		}
+		var z =11;
+		foo();// will print 11.
+		// in above code function dosen't have it's context defined using method like call, apply or bind. hence by default it will point to global window object.
+		   we also know that by default all global variables are present as properties of the global window object in JS hence it will print 11.
+		// important thing here is, this default binding won't work when work in strict mode.
+		ex. function foo() {
+				"use strict";
+				console.log(this.z);
+			}
+			var z =11;
+			foo();// will throw error.
+		// another thing we should keep in mind is "use strict" has effect only inside function where it is written and inside inner functions.
+			ex. function foo() {
+				console.log(this.z);
+			}
+			var z =12;
+			(function () {
+				"use strict";
+				foo();
+			})();
+			// above code will print 12 without any problem because use strict is applicable only from anonymous function IIFE and dosen't have effect in foo function hence
+			   it will print 12.
+
+	2) implicit binding: when we bind function as property of any object then this keyword from that function will refer to object itself and can access other properties.
+		ex.
+			function foo () {
+				console.log(this.prop1);
+			}
+			var obj = {
+				prop1: "Santosh",
+				fun: foo
+			}
+			obj.fun()// will print "Santosh"; still if we just called foo(); it will print undefined.
+			// here we are making function as property of one of object and hence it can access other properties of that object using this keyword.
+			// we must have to call function on object in order to make this keyword to point to that objet.
+			ex.
+			function foo () {console.log(this.a)};
+			var obj = {
+				a:2,
+				foo:foo
+			};
+			var foo2 = obj.foo;
+			var a = 12;
+			foo2(); // will print 12 instead of 2 because property foo of object and foo2 are two different refernces to the same function. but they are not exactly same. 
+			another more confusing example could be passign function as callback function ie. parameter to another function.
+			ex. function foo() { console.log(this.a)};
+				var obj = {
+					a:2,
+					foo:foo
+				};
+				var a = "global";
+				setTimeout(obj.foo, 1000); // will print "global" after 1 second because obj.foo is refernce and while executing it it will refer to global a.
+			
+			// thumb rule is until and unless we invoke it in obj.foo() fashion, this keyword inside function will never point to object itself rather it will point global
+										      window object if there is no strit mode.
+
+	 3) 
+	
+			
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
